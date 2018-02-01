@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ecommerceTesteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cadastroUsuario">
+    <Key>
+      <PropertyRef Name="cadastroUsuario_id" />
+    </Key>
+    <Property Name="cadastroUsuario_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cadastroUsuario_user" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="cadastroUsuario_senha" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="cadastroUsuario_nome" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="cadastroUsuario_ativo" Type="bit" />
+  </EntityType>
+  <EntityType Name="carrinho">
+    <Key>
+      <PropertyRef Name="carrinho_id" />
+    </Key>
+    <Property Name="carrinho_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="carrinho_dataCadastro" Type="date" />
+    <Property Name="cliente_id" Type="int" />
+    <Property Name="carrinho_total" Type="money" />
+  </EntityType>
+  <EntityType Name="carrinhoItens">
+    <Key>
+      <PropertyRef Name="carrinhoItens_id" />
+    </Key>
+    <Property Name="carrinhoItens_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="carrinhoItens_carrinho_id" Type="int" />
+    <Property Name="carrinhoItens_produto_id" Type="int" />
+    <Property Name="carrinhoItens_valorUnitario" Type="money" />
+    <Property Name="carrinhoItens_valorTotalItem" Type="money" />
+    <Property Name="carrinhoItens_quantidade" Type="int" />
+    <Property Name="carrinhoItens_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="categoria_id" />
+    </Key>
+    <Property Name="categoria_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoria_nome" Type="varchar" MaxLength="20" />
+    <Property Name="categoria_ativo" Type="bit" />
+    <Property Name="categoria_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="cliente">
+    <Key>
+      <PropertyRef Name="cliente_id" />
+    </Key>
+    <Property Name="cliente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cliente_nome" Type="varchar" MaxLength="40" />
+    <Property Name="cliente_email" Type="varchar" MaxLength="50" />
+    <Property Name="cliente_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="pedido_id" />
+    </Key>
+    <Property Name="pedido_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pedido_valor" Type="money" />
+    <Property Name="carrinhoItens_id" Type="int" />
+    <Property Name="pedido_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="pedidoItens">
+    <Key>
+      <PropertyRef Name="pedidoItens_id" />
+    </Key>
+    <Property Name="pedidoItens_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pedidoItens_pedido_id" Type="int" />
+    <Property Name="pedidoItens_valor_total" Type="money" />
+    <Property Name="pedidoItens_valorUnidade" Type="money" />
+    <Property Name="pedidoItens_quantidade" Type="int" />
+    <Property Name="pedidoItens_produto_id" Type="int" />
+    <Property Name="pedidoItens_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="produto">
+    <Key>
+      <PropertyRef Name="produto_id" />
+    </Key>
+    <Property Name="produto_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="produto_nome" Type="varchar" MaxLength="40" />
+    <Property Name="produto_desc" Type="varchar" MaxLength="100" />
+    <Property Name="produto_ativo" Type="bit" />
+    <Property Name="produto_preco" Type="money" />
+    <Property Name="produto_precoPromo" Type="money" />
+  </EntityType>
+  <EntityType Name="produtoCategoria">
+    <Key>
+      <PropertyRef Name="categoria_id" />
+      <PropertyRef Name="produto_id" />
+    </Key>
+    <Property Name="categoria_id" Type="int" Nullable="false" />
+    <Property Name="produto_id" Type="int" Nullable="false" />
+    <Property Name="produtoCategoria_dataCadastro" Type="date" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK__carrinho__client__412EB0B6">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="cliente_id" />
+      </Principal>
+      <Dependent Role="carrinho">
+        <PropertyRef Name="cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__carrinhoI__carri__45F365D3">
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1" />
+    <End Role="carrinhoItens" Type="Self.carrinhoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="carrinho">
+        <PropertyRef Name="carrinho_id" />
+      </Principal>
+      <Dependent Role="carrinhoItens">
+        <PropertyRef Name="carrinhoItens_carrinho_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedido__carrinho__01142BA1">
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="carrinho">
+        <PropertyRef Name="carrinho_id" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="carrinhoItens_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedidoIte__pedid__4F7CD00D">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="0..1" />
+    <End Role="pedidoItens" Type="Self.pedidoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="pedido_id" />
+      </Principal>
+      <Dependent Role="pedidoItens">
+        <PropertyRef Name="pedidoItens_pedido_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedidoIte__pedid__5070F446">
+    <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+    <End Role="pedidoItens" Type="Self.pedidoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produto">
+        <PropertyRef Name="produto_id" />
+      </Principal>
+      <Dependent Role="pedidoItens">
+        <PropertyRef Name="pedidoItens_produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="prcdadosCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="ecommerceTesteModelStoreContainer">
+    <EntitySet Name="cadastroUsuario" EntityType="Self.cadastroUsuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="carrinho" EntityType="Self.carrinho" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="carrinhoItens" EntityType="Self.carrinhoItens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cliente" EntityType="Self.cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pedido" EntityType="Self.pedido" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="pedidoItens" EntityType="Self.pedidoItens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="produto" EntityType="Self.produto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="produtoCategoria" EntityType="Self.produtoCategoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__carrinho__client__412EB0B6" Association="Self.FK__carrinho__client__412EB0B6">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="carrinho" EntitySet="carrinho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__carrinhoI__carri__45F365D3" Association="Self.FK__carrinhoI__carri__45F365D3">
+      <End Role="carrinho" EntitySet="carrinho" />
+      <End Role="carrinhoItens" EntitySet="carrinhoItens" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedido__carrinho__01142BA1" Association="Self.FK__pedido__carrinho__01142BA1">
+      <End Role="carrinho" EntitySet="carrinho" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedidoIte__pedid__4F7CD00D" Association="Self.FK__pedidoIte__pedid__4F7CD00D">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="pedidoItens" EntitySet="pedidoItens" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedidoIte__pedid__5070F446" Association="Self.FK__pedidoIte__pedid__5070F446">
+      <End Role="produto" EntitySet="produto" />
+      <End Role="pedidoItens" EntitySet="pedidoItens" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

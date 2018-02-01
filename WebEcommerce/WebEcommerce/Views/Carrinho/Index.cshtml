@@ -1,0 +1,67 @@
+﻿@model WebEcommerce.Models.Produto
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detalhes do produto</h2>
+
+@using (Html.BeginForm())
+{
+    if (!string.IsNullOrEmpty(ViewBag.errorMessage))
+    {
+        <div class="alert alert-danger text-center">
+            @ViewBag.errorMessage
+        </div>
+    }
+
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Informe a quantidade que deseja</div>
+        <div class="card-body">
+            <div class="form-group">
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.Label("Produto: ", htmlAttributes: new { @class = "control-label col-md-6" })
+                        @Html.DisplayFor(modelItem => Model.produto_nome);
+                        @Html.ValidationMessage("nome", "", new { @class = "text-danger" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.Label("Descricao:", htmlAttributes: new { @class = "control-label col-md-6" })
+                        @Html.DisplayFor(modelItem => Model.produto_desc);
+                        @Html.ValidationMessage("descricao", "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.Label("Valor:", htmlAttributes: new { @class = "control-label col-md-6" })
+                        R$ @Html.DisplayFor(modelItem => Model.produto_preco)
+                        @Html.ValidationMessage("valor", "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12">
+                        @Html.Label("Digite a quantidade:", htmlAttributes: new { @class = "control-label col-md-6" })
+                        @Html.TextBox("quantidade", "", new { type = "numeric", @class = "col-md-2" })
+                        @Html.ValidationMessage("quantidade", "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10 ">
+                        <input type="submit" value="Confirmar" class="btn btn-primary " />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+
+}

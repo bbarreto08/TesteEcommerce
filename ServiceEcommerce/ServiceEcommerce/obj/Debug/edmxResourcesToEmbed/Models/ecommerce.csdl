@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ecommerceTesteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="cadastroUsuario">
+    <Key>
+      <PropertyRef Name="cadastroUsuario_id" />
+    </Key>
+    <Property Name="cadastroUsuario_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cadastroUsuario_user" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cadastroUsuario_senha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cadastroUsuario_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cadastroUsuario_ativo" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="carrinho">
+    <Key>
+      <PropertyRef Name="carrinho_id" />
+    </Key>
+    <Property Name="carrinho_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="carrinho_dataCadastro" Type="DateTime" Precision="0" />
+    <Property Name="cliente_id" Type="Int32" />
+    <Property Name="carrinho_total" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="carrinhoItens" Relationship="Self.FK__carrinhoI__carri__45F365D3" FromRole="carrinho" ToRole="carrinhoItens" />
+    <NavigationProperty Name="pedido" Relationship="Self.FK__pedido__carrinho__01142BA1" FromRole="carrinho" ToRole="pedido" />
+    <NavigationProperty Name="NavigationProperty1" />
+  </EntityType>
+  <EntityType Name="carrinhoItens">
+    <Key>
+      <PropertyRef Name="carrinhoItens_id" />
+    </Key>
+    <Property Name="carrinhoItens_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="carrinhoItens_carrinho_id" Type="Int32" />
+    <Property Name="carrinhoItens_produto_id" Type="Int32" />
+    <Property Name="carrinhoItens_valorUnitario" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="carrinhoItens_valorTotalItem" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="carrinhoItens_quantidade" Type="Int32" />
+    <Property Name="carrinhoItens_dataCadastro" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="carrinho" Relationship="Self.FK__carrinhoI__carri__45F365D3" FromRole="carrinhoItens" ToRole="carrinho" />
+  </EntityType>
+  <EntityType Name="categoria">
+    <Key>
+      <PropertyRef Name="categoria_id" />
+    </Key>
+    <Property Name="categoria_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoria_nome" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="categoria_ativo" Type="Boolean" />
+    <Property Name="categoria_dataCadastro" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="cliente">
+    <Key>
+      <PropertyRef Name="cliente_id" />
+    </Key>
+    <Property Name="cliente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="cliente_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="cliente_email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cliente_dataCadastro" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="carrinho" Relationship="Self.FK__carrinho__client__412EB0B6" FromRole="cliente" ToRole="carrinho" />
+  </EntityType>
+  <EntityType Name="pedido">
+    <Key>
+      <PropertyRef Name="pedido_id" />
+    </Key>
+    <Property Name="pedido_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pedido_valor" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="carrinhoItens_id" Type="Int32" />
+    <Property Name="pedido_dataCadastro" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="carrinho" Relationship="Self.FK__pedido__carrinho__01142BA1" FromRole="pedido" ToRole="carrinho" />
+    <NavigationProperty Name="pedidoItens" Relationship="Self.FK__pedidoIte__pedid__4F7CD00D" FromRole="pedido" ToRole="pedidoItens" />
+  </EntityType>
+  <EntityType Name="pedidoItens">
+    <Key>
+      <PropertyRef Name="pedidoItens_id" />
+    </Key>
+    <Property Name="pedidoItens_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pedidoItens_pedido_id" Type="Int32" />
+    <Property Name="pedidoItens_valor_total" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pedidoItens_valorUnidade" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="pedidoItens_quantidade" Type="Int32" />
+    <Property Name="pedidoItens_produto_id" Type="Int32" />
+    <Property Name="pedidoItens_dataCadastro" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="pedido" Relationship="Self.FK__pedidoIte__pedid__4F7CD00D" FromRole="pedidoItens" ToRole="pedido" />
+    <NavigationProperty Name="produto" Relationship="Self.FK__pedidoIte__pedid__5070F446" FromRole="pedidoItens" ToRole="produto" />
+  </EntityType>
+  <EntityType Name="produto">
+    <Key>
+      <PropertyRef Name="produto_id" />
+    </Key>
+    <Property Name="produto_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="produto_nome" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="produto_desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="produto_ativo" Type="Boolean" />
+    <Property Name="produto_preco" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="produto_precoPromo" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="pedidoItens" Relationship="Self.FK__pedidoIte__pedid__5070F446" FromRole="produto" ToRole="pedidoItens" />
+  </EntityType>
+  <EntityType Name="produtoCategoria">
+    <Key>
+      <PropertyRef Name="categoria_id" />
+      <PropertyRef Name="produto_id" />
+    </Key>
+    <Property Name="categoria_id" Type="Int32" Nullable="false" />
+    <Property Name="produto_id" Type="Int32" Nullable="false" />
+    <Property Name="produtoCategoria_dataCadastro" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__carrinho__client__412EB0B6">
+    <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="cliente">
+        <PropertyRef Name="cliente_id" />
+      </Principal>
+      <Dependent Role="carrinho">
+        <PropertyRef Name="cliente_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__carrinhoI__carri__45F365D3">
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1" />
+    <End Role="carrinhoItens" Type="Self.carrinhoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="carrinho">
+        <PropertyRef Name="carrinho_id" />
+      </Principal>
+      <Dependent Role="carrinhoItens">
+        <PropertyRef Name="carrinhoItens_carrinho_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedido__carrinho__01142BA1">
+    <End Role="carrinho" Type="Self.carrinho" Multiplicity="0..1" />
+    <End Role="pedido" Type="Self.pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="carrinho">
+        <PropertyRef Name="carrinho_id" />
+      </Principal>
+      <Dependent Role="pedido">
+        <PropertyRef Name="carrinhoItens_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedidoIte__pedid__4F7CD00D">
+    <End Role="pedido" Type="Self.pedido" Multiplicity="0..1" />
+    <End Role="pedidoItens" Type="Self.pedidoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="pedido">
+        <PropertyRef Name="pedido_id" />
+      </Principal>
+      <Dependent Role="pedidoItens">
+        <PropertyRef Name="pedidoItens_pedido_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__pedidoIte__pedid__5070F446">
+    <End Role="produto" Type="Self.produto" Multiplicity="0..1" />
+    <End Role="pedidoItens" Type="Self.pedidoItens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="produto">
+        <PropertyRef Name="produto_id" />
+      </Principal>
+      <Dependent Role="pedidoItens">
+        <PropertyRef Name="pedidoItens_produto_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ecommerceTesteEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="cadastroUsuario" EntityType="Self.cadastroUsuario" />
+    <EntitySet Name="carrinho" EntityType="Self.carrinho" />
+    <EntitySet Name="carrinhoItens" EntityType="Self.carrinhoItens" />
+    <EntitySet Name="categoria" EntityType="Self.categoria" />
+    <EntitySet Name="cliente" EntityType="Self.cliente" />
+    <EntitySet Name="pedido" EntityType="Self.pedido" />
+    <EntitySet Name="pedidoItens" EntityType="Self.pedidoItens" />
+    <EntitySet Name="produto" EntityType="Self.produto" />
+    <EntitySet Name="produtoCategoria" EntityType="Self.produtoCategoria" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK__carrinho__client__412EB0B6" Association="Self.FK__carrinho__client__412EB0B6">
+      <End Role="cliente" EntitySet="cliente" />
+      <End Role="carrinho" EntitySet="carrinho" />
+    </AssociationSet>
+    <AssociationSet Name="FK__carrinhoI__carri__45F365D3" Association="Self.FK__carrinhoI__carri__45F365D3">
+      <End Role="carrinho" EntitySet="carrinho" />
+      <End Role="carrinhoItens" EntitySet="carrinhoItens" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedido__carrinho__01142BA1" Association="Self.FK__pedido__carrinho__01142BA1">
+      <End Role="carrinho" EntitySet="carrinho" />
+      <End Role="pedido" EntitySet="pedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedidoIte__pedid__4F7CD00D" Association="Self.FK__pedidoIte__pedid__4F7CD00D">
+      <End Role="pedido" EntitySet="pedido" />
+      <End Role="pedidoItens" EntitySet="pedidoItens" />
+    </AssociationSet>
+    <AssociationSet Name="FK__pedidoIte__pedid__5070F446" Association="Self.FK__pedidoIte__pedid__5070F446">
+      <End Role="produto" EntitySet="produto" />
+      <End Role="pedidoItens" EntitySet="pedidoItens" />
+    </AssociationSet>
+    <FunctionImport Name="prcdadosCliente" ReturnType="Collection(ecommerceTesteModel.prcdadosCliente_Result)" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(ecommerceTesteModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(ecommerceTesteModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="prcdadosCliente_Result">
+    <Property Type="Int32" Name="cliente_id" Nullable="false" />
+    <Property Type="String" Name="cliente_nome" Nullable="true" MaxLength="40" />
+    <Property Type="String" Name="cliente_email" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="cliente_dataCadastro" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ServiceEcommerce</name>
+    </assembly>
+    <members>
+        <member name="T:ServiceEcommerce.Controllers.CarrinhoController">
+            <summary>
+            Recurso relacionado a operacoes de Carrinho
+            </summary>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.CarrinhoController.Post(System.Int32)">
+            <summary>
+            Criar carrinho para o cliente
+            </summary>
+            <param name="idCliente">Codigo do cliente</param>
+            <returns></returns>     
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.CarrinhoController.Get(System.Int32)">
+            <summary>
+            Retornar carrinho
+            </summary>
+            <param name="idCarrinho"></param>
+            <returns>Dados do carrinho criado</returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.CarrinhoItensController.PostInserirCarrinho(ServiceEcommerce.Models.DadosInseriCarrinho)">
+            <summary>
+            Inserir item no carrinho
+            </summary>
+            <param name="DadosInseriCarrinho"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.CategoriaController.Post(ServiceEcommerce.Models.categoria)">
+            <summary>
+            Cadastrar nova categoria
+            </summary>
+            <param name="categoria">Objeto categoria</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.ClienteController.Post(ServiceEcommerce.Models.cliente)">
+            <summary>
+            Metodo realiza a insercao de um novo cliente, necessita o uso do token de 
+            autenticacao
+            </summary>
+            <param name="cliente">Objeto com dados do cliente</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.ClienteController.Get">
+            <summary>
+            Recupera todos os clientes cadastrados
+            necessita o uso do token de autenticacao
+            </summary>
+            <returns>Lista de clientes</returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.DadosCarrinhoController.Get(System.Int32)">
+            <summary>
+            Retorna lista dos itens de determinado carrinho
+            </summary>
+            <param name="idCarrinho">Detalhes do carrinho</param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.LoginController.PostCadastrarUsuario(ServiceEcommerce.Models.cadastroUsuario)">
+            <summary>
+            Autenticar usuario
+            </summary>
+            <param name="cadastroUsuario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.PedidoController.Get">
+            <summary>
+            Retorna a lista de todos os pedidos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.PedidoController.GetDetalhes(System.Int32)">
+            <summary>
+            Retorna detalhes de um pedido
+            </summary>
+            <param name="carrinho_id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.PedidoController.PostInserirPedido(System.Int32)">
+            <summary>
+            Confirma o pedido 
+            </summary>
+            <param name="idCarrinho"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.ProdutosController.Post(ServiceEcommerce.Models.produto)">
+            <summary>
+            Cadastrar um novo produto
+            </summary>
+            <param name="produto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.ProdutosController.Get">
+            <summary>
+            Metodo para obeter a lista de todos os produtos disponiveis ativos
+            </summary>
+            <returns></returns>        
+        </member>
+        <member name="M:ServiceEcommerce.Controllers.ProdutosController.Get(System.Int32)">
+            <summary>
+            Retorna dados de um determinado produto
+            </summary>
+            <param name="idProduto"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
